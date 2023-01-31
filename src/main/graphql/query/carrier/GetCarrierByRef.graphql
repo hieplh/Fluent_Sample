@@ -1,0 +1,20 @@
+query GetCarrierByRefs($carrierRefs: [String!], $itemCount: Int!, $cursor: String!) {
+    carriers(ref: $carrierRefs, first: $itemCount, after: $cursor) {
+        edges {
+            node {
+                id
+                name
+                type
+                ref
+                status
+                retailer {
+                    id
+                }
+            }
+            cursor
+        }
+        pageInfo{
+            hasNextPage
+        }
+    }
+}

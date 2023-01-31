@@ -1,0 +1,149 @@
+query GetFulfilmentById($id: ID!,
+    $includeAttributes: Boolean!,
+    $includeItems: Boolean!,
+    $includeFromAddress: Boolean!,
+    $includeToAddress: Boolean!,
+    $includeOrder: Boolean!,
+    $includeArticles: Boolean!,
+    $fulfilmentItemsCount: Int,
+    $fulfilmentItemsCursor: String,
+    $articleCount: Int,
+    $articleCursor: String) {
+    fulfilmentById: fulfilmentById(id: $id) {
+        id
+        ref
+        status
+        type
+        deliveryType
+        createdOn
+        updatedOn
+        eta
+        expiryTime
+        attributes @include(if: $includeAttributes) {
+            name
+            type
+            value
+        }
+        items(first: $fulfilmentItemsCount, after: $fulfilmentItemsCursor) @include(if: $includeItems) {
+            itemEdge:edges {
+                itemNode:node {
+                    id
+                    ref
+                    status
+                    requestedQuantity
+                    filledQuantity
+                    rejectedQuantity
+                    orderItem {
+                        id
+                        ref
+                        quantity
+                        product {
+                            ... on VariantProduct {
+                                id
+                                ref
+                                type
+                                status
+                                vpAttributes:attributes {
+                                    name
+                                    type
+                                    value
+                                }
+                            }
+                            ... on StandardProduct {
+                                id
+                                ref
+                                type
+                                status
+                                spAttributes:attributes {
+                                    name
+                                    type
+                                    value
+                                }
+                            }
+                        }
+                        orderItemAttributes:attributes @include(if: $includeAttributes) {
+                            name
+                            type
+                            value
+                        }
+                    }
+                }
+                cursor
+            }
+            pageInfo {
+                hasNextPage
+            }
+        }
+        fromLocation {
+            ref
+        }
+        fromAddress @include(if: $includeFromAddress) {
+            id
+            ref
+            type
+            companyName
+            name
+            street
+            city
+            country
+            state
+            postcode
+            region
+            latitude
+            longitude
+            timeZone
+        }
+        toAddress @include(if: $includeToAddress) {
+            id
+            ref
+            type
+            companyName
+            name
+            street
+            city
+            country
+            state
+            postcode
+            region
+            latitude
+            longitude
+            timeZone
+        }
+        order @include(if: $includeOrder) {
+            id
+            ref
+            type
+            status
+        }
+        articles(first: $articleCount, after: $articleCursor) @include(if: $includeArticles) {
+            articleEdge:edges {
+                articleNode:node {
+                    id
+                    ref
+                    name
+                    type
+                    status
+                    height
+                    weight
+                    width
+                    length
+                    quantity
+                    consignmentArticles {
+                        consignmentEdge:edges {
+                            consignmentNode:node {
+                                consignment {
+                                    id
+                                    ref
+                                }
+                            }
+                        }
+                    }
+                }
+                cursor
+            }
+            pageInfo {
+                hasNextPage
+            }
+        }
+    }
+}

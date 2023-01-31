@@ -1,0 +1,5 @@
+mutation createInventoryQuantity($input: CreateInventoryQuantityInput) {
+    createInventoryQuantity(input: $input) {
+        id
+    }
+}

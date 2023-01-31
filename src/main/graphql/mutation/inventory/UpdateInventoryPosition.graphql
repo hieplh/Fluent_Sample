@@ -1,0 +1,7 @@
+mutation UpdateInventoryPosition($input: UpdateInventoryPositionInput) {
+    updateInventoryPosition(input: $input) {
+        ref
+        type
+        status
+    }
+}

@@ -1,0 +1,10 @@
+mutation updateVirtualPosition($input: UpdateVirtualPositionInput) {
+  updateVirtualPosition(input: $input) {
+    ref
+    attributes{
+      name
+      type
+      value
+    }
+  }
+}

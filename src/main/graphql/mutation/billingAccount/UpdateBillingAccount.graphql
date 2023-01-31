@@ -1,0 +1,5 @@
+mutation UpdateBillingAccount($input: UpdateBillingAccountInput!){
+    updateBillingAccount(input:$input){
+        ref
+    }
+}

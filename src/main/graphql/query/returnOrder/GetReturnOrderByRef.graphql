@@ -1,0 +1,75 @@
+query GetReturnOrderByRef(
+$ref: String!,
+$retailerId: ID!,
+$includeReturnItems: Boolean!,
+$returnItemCount: Int,
+$returnItemCursor: String,
+$includeReturnFulfilments: Boolean!,
+$returnFulfilmentsCount: Int,
+$returnFulfilmentsCursor: String
+) {
+    returnOrder(ref: $ref, retailer: {id: $retailerId} ) {
+        id
+        ref
+        type
+        status
+        subTotalAmount {
+            amount
+        }
+        totalTax {
+            amount
+        }
+        totalAmount {
+            amount
+        }
+        order {
+            ref
+        }
+        creditMemo {
+            ref
+        }
+        customer {
+            ref
+        }
+        attributes {
+            name
+            type
+            value
+        }
+        returnOrderItems (first: $returnItemCount, after: $returnItemCursor) @include(if: $includeReturnItems) {
+            returnOrderItemEdge:edges {
+                returnOrderItemNode:node {
+                    id
+                    ref
+                    status
+                    product {
+                        ref
+                    }
+                    orderItem {
+                        ref
+                    }
+                    unitQuantity {
+                        quantity
+                    }
+                    unitAmount {
+                        amount
+                    }
+                    returnOrderItemAttributes: attributes {
+                        name
+                        type
+                        value
+                    }
+                }
+            }
+        }
+        returnOrderFulfilments (first: $returnFulfilmentsCount, after: $returnFulfilmentsCursor) @include(if :$includeReturnFulfilments) {
+            returnFulfilmentEdge:edges {
+                ReturnFulfilment:node {
+                    id
+                    ref
+                    status
+                }
+            }
+        }
+   }
+}

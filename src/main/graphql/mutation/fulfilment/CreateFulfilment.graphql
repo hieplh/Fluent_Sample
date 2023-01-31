@@ -1,0 +1,5 @@
+mutation CreateFulfilment($input: CreateFulfilmentInput!) {
+  createFulfilment(input: $input) {
+    id
+  }
+}

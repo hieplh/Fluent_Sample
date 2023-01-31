@@ -1,0 +1,11 @@
+query getCustomerByRef($ref: String!){
+    customer(ref:$ref){
+        id
+        ref
+        title
+        firstName
+        lastName
+        username
+        primaryEmail
+    }
+}

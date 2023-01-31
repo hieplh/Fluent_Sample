@@ -1,0 +1,5 @@
+mutation updateOrderAttributes($input: UpdateOrderInput) {
+    updateOrder(input: $input) {
+        ref
+    }
+}

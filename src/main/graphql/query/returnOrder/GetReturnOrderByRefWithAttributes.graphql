@@ -1,0 +1,16 @@
+query GetReturnOrderByRefWithAttributes(
+$ref: String!,
+$retailerId: ID!
+) {
+    returnOrder(ref: $ref, retailer: {id: $retailerId} ) {
+        id
+        ref
+        type
+        status
+        attributes {
+            name
+            type
+            value
+        }
+   }
+}

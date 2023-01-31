@@ -1,0 +1,13 @@
+query GetOrderByIdWithAttributes($id:ID!) {
+    orderById(id:$id) {
+        id
+        ref
+        status
+        type
+        attributes {
+            name
+            type
+            value
+        }
+    }
+}

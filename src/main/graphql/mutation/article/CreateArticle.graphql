@@ -1,0 +1,6 @@
+mutation createArticle($input: CreateArticleInput) {
+    createArticle(input: $input) {
+        id
+        status
+    }
+}

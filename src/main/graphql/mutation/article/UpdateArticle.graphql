@@ -1,0 +1,6 @@
+mutation updateArticle($input: UpdateArticleInput) {
+    updateArticle(input: $input) {
+        id
+        status
+    }
+}

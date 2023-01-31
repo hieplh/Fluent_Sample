@@ -1,0 +1,66 @@
+query GetArticleById($id: ID!, $includeAttributes: Boolean!, $includeItems: Boolean!, $includeOrder: Boolean!, $includeFulfilments: Boolean!, $itemsCount: Int, $itemsCursor: String, $fulfilmentsCount: Int, $fulfilmentsCursor: String) {
+    articleById(id: $id) {
+        id
+        ref
+        type
+        status
+        createdOn
+        updatedOn
+        attributes @include(if: $includeAttributes) {
+            name
+            type
+            value
+        }
+        description
+        height
+        length
+        name
+        weight
+        width
+        quantity
+        items(first: $itemsCount, after: $itemsCursor) @include(if: $includeItems) {
+            itemsEdge:edges {
+                item:node {
+                    id
+                    quantity
+                    barcode
+                    updatedOn
+                    createdOn
+                }
+            }
+        }
+        fulfilments(first: $fulfilmentsCount, after: $fulfilmentsCursor) @include(if: $includeFulfilments) {
+            fulfilmentEdge:edges {
+                fulfilment:node {
+                    id
+                    ref
+                    status
+                    createdOn
+                    updatedOn
+                    attributes {
+                        name
+                        type
+                        value
+                    }
+                    deliveryType
+                    type
+                    eta
+                    expiryTime
+                    order @include(if: $includeOrder) {
+                        id
+                        ref
+                        type
+                        status
+                        createdOn
+                        updatedOn
+                        attributes {
+                            name
+                            type
+                            value
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

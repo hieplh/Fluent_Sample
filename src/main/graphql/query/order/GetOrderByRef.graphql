@@ -1,0 +1,57 @@
+query GetOrderByRef(
+  $ref: String!,
+  $includeOrderItems: Boolean!,
+  $includeOrderProductAttributes: Boolean!,
+  $orderItemCount: Int,
+  $orderItemCursor: String
+) {
+  order(ref: $ref) {
+    id
+    ref
+    type
+    status
+    attributes {
+      name
+      type
+      value
+    }
+    orderItems:items (first: $orderItemCount, after: $orderItemCursor) @include(if: $includeOrderItems) {
+      orderItemEdge:edges {
+        orderItemNode:node {
+          id
+          ref
+          quantity
+          price
+          paidPrice
+          taxPrice
+          taxType
+          totalPrice
+          totalTaxPrice
+          currency
+          orderItemProduct:product {
+            ... on VariantProduct {
+              id
+              ref
+              type
+              status
+              orderVpAttributes:attributes @include(if: $includeOrderProductAttributes) {
+                name
+                type
+                value
+              }
+            }
+          }
+          orderItemAttributes: attributes {
+            name
+            type
+            value
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+}

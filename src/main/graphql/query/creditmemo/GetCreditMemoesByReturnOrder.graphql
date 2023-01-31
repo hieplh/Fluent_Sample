@@ -1,0 +1,25 @@
+query GetCreditMemoesByReturnOrder(
+    $returnOrderRef: String!,
+    $retailerId: ID!,
+    $itemCount: Int,
+    $cursor: String
+) {
+    creditMemoes(
+        returnOrder: { ref: $returnOrderRef, retailer: {id: $retailerId }},
+        first: $itemCount,
+        after: $cursor
+    ) {
+        creditMemoEdge: edges {
+            creditMemo: node {
+                id
+                ref
+                order {
+                    ref
+                }
+                returnOrder {
+                    ref
+                }
+            }
+        }
+    }
+}

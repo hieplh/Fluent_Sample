@@ -1,0 +1,11 @@
+query GetInventoryQuantityAggregate(
+    $inventoryPositionRef: String!
+    $catalogueRef: String!
+    $type:[String!]
+    $status:[String!]
+    $expectedOn:DateRange) {
+    inventoryQuantityAggregate(position:{ref:$inventoryPositionRef catalogue:{ref:$catalogueRef}} type:$type status:$status expectedOn:$expectedOn) {
+        sum
+        count
+    }
+}

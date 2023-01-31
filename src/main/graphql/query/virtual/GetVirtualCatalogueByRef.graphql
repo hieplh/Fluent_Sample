@@ -1,0 +1,14 @@
+query GetVirtualCatalogueByRef($ref: String!) {
+    virtualCatalogue(ref: $ref) {
+        id
+        ref
+        type
+        status
+        name
+        inventoryCatalogueRef
+        productCatalogueRef
+        controlGroupRef
+        networkIds
+        retailerRefs
+    }
+}

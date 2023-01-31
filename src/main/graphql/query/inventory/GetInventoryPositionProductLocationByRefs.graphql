@@ -1,0 +1,25 @@
+query GetInventoryPositionProductLocationByRefs(
+    $inventoryPositionRef: String!
+    $inventoryCatalogueRef: String!
+    $productRef: String!
+    $productCatalogueRef: String!
+    $locationRef: String!
+) {
+    inventoryPosition(ref: $inventoryPositionRef, catalogue: {ref: $inventoryCatalogueRef}) {
+        id
+        ref
+        type
+        status
+        onHand
+    }
+    variantProduct(ref: $productRef, catalogue: {ref: $productCatalogueRef}) {
+        id
+        ref
+        status
+    }
+    location(ref:$locationRef){
+        id
+        ref
+        status
+    }
+}

@@ -1,0 +1,23 @@
+query GetControlsRefs($controlGroupRef: String!, $controlRefs: [String!], $controlStatuses: [String!], $controlCursor:String) {
+  controlGroup(ref:$controlGroupRef){
+    controls(ref:$controlRefs, status:$controlStatuses, after:$controlCursor first:100){
+      controlEdge:edges{
+        control:node{
+          ref
+          type
+          status
+          executionOrder
+          values{
+            name
+            type
+            value
+          }
+        }
+        cursor
+      }
+      pageInfo{
+        hasNextPage
+      }
+    }
+  }
+}

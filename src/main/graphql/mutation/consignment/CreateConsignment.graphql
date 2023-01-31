@@ -1,0 +1,6 @@
+mutation CreateConsignment($input: CreateConsignmentInput) {
+    createConsignment(input: $input) {
+        id
+        status
+    }
+}

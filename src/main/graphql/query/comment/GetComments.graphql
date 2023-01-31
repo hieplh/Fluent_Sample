@@ -1,0 +1,18 @@
+query getComments($entityType : [String!] , $entityId : [ID!], $itemCount: Int!, $cursor: String!){
+    comments(entityType:$entityType , entityId:$entityId, first: $itemCount, after: $cursor){
+        edges{
+            node{
+                id
+                entityType
+                entityId
+                text
+                createdOn
+                updatedOn
+            }
+            cursor
+        }
+        pageInfo{
+            hasNextPage
+        }
+    }
+}

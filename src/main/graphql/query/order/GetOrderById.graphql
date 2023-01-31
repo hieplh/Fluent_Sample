@@ -1,0 +1,188 @@
+query GetOrderById(
+  $id: ID!,
+  $includeOrderAttributes: Boolean!,
+  $includeOrderProductAttributes: Boolean!,
+  $includeFulfilmentChoice: Boolean!,
+  $includeCustomer: Boolean!,
+  $includeOrderItems: Boolean!,
+  $includeFulfilments: Boolean!,
+  $includeFulfilmentAttributes:Boolean!
+  $includeFulfilmentItems:Boolean!
+  $includeFulfilmentOrderItems:Boolean!
+  $orderItemCount: Int,
+  $orderItemCursor: String,
+  $fulfilmentCount: Int,
+  $fulfilmentCursor: String,
+  $fulfilmentItemCount: Int,
+  $fulfilmentItemCursor: String
+) {
+  orderById(id: $id) {
+    id
+    ref
+    type
+    status
+    createdOn
+    updatedOn
+    totalPrice
+    totalTaxPrice
+    orderItems:items (first: $orderItemCount, after: $orderItemCursor) @include(if: $includeOrderItems) {
+      orderItemEdge:edges {
+        orderItemNode:node {
+          id
+          ref
+          quantity
+          price
+          paidPrice
+          taxPrice
+          taxType
+          totalPrice
+          totalTaxPrice
+          currency
+          orderItemAttributes: attributes {
+            name
+            type
+            value
+          }
+          orderItemProduct:product {
+            ... on VariantProduct {
+              id
+              ref
+              type
+              status
+              orderVpAttributes:attributes @include(if: $includeOrderProductAttributes) {
+                name
+                type
+                value
+              }
+            }
+            ... on StandardProduct {
+              id
+              ref
+              type
+              status
+              orderSpAttributes:attributes @include(if: $includeOrderProductAttributes){
+                name
+                type
+                value
+              }
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+    fulfilments(first: $fulfilmentCount, after: $fulfilmentCursor) @include(if: $includeFulfilments) {
+      fulfilmentEdges:edges {
+        fulfilmentNode:node {
+          id
+          ref
+          type
+          status
+          type
+          deliveryType
+          createdOn
+          updatedOn
+          fromLocation{
+            ref
+          }
+          fulfilmentAttributes:attributes @include(if: $includeFulfilmentAttributes)  {
+            name
+            value
+            type
+          }
+          fromAddress {
+            ref
+            id
+            name
+          }
+          toAddress {
+            ref
+            id
+          }
+          fulfilmentItems:items(first: $fulfilmentItemCount, after: $fulfilmentItemCursor) @include(if: $includeFulfilmentItems){
+            fulfilmentItemEdges:edges {
+              fulfilmentItemNode:node {
+                id
+                ref
+                requestedQuantity
+                filledQuantity
+                rejectedQuantity
+                fulfilmentOrderItem:orderItem @include(if: $includeFulfilmentOrderItems){
+                  id
+                  ref
+                  quantity
+                  fulfilmentOrderItemProduct:product {
+                    ... on VariantProduct {
+                      id
+                      ref
+                    }
+                    ... on StandardProduct {
+                      id
+                      ref
+                    }
+                  }
+                }
+              }
+              cursor
+            }
+            pageInfo {
+              hasNextPage
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+    customer @include(if: $includeCustomer) {
+      id
+      ref
+      title
+      country
+      firstName
+      lastName
+      username
+      primaryEmail
+      primaryPhone
+    }
+    orderAttributes:attributes @include(if: $includeOrderAttributes) {
+      name
+      value
+      type
+    }
+    fulfilmentChoice @include(if: $includeFulfilmentChoice) {
+      id
+      createdOn
+      updatedOn
+      currency
+      deliveryInstruction
+      fulfilmentPrice
+      deliveryType
+      fulfilmentPrice
+      fulfilmentType
+      fulfilmentTaxPrice
+      pickupLocationRef
+      deliveryAddress {
+        id
+        type
+        companyName
+        name
+        street
+        city
+        state
+        postcode
+        region
+        country
+        region
+        ref
+        latitude
+        longitude
+      }
+    }
+  }
+}

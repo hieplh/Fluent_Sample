@@ -1,0 +1,5 @@
+mutation UpdateInventoryQuantity($input: UpdateInventoryQuantityInput) {
+    updateInventoryQuantity(input: $input) {
+        ref
+    }
+}

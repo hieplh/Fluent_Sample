@@ -1,0 +1,5 @@
+mutation CreateBillingAccount($input: CreateBillingAccountInput!){
+    createBillingAccount(input:$input){
+        ref
+    }
+}

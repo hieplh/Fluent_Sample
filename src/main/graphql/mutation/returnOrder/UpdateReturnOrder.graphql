@@ -1,0 +1,6 @@
+mutation UpdateReturnOrder($input: UpdateReturnOrderInput) {
+    updateReturnOrder(input: $input) {
+        id
+        status
+    }
+}

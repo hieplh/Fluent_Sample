@@ -1,0 +1,7 @@
+mutation CreateVirtualPosition($input: CreateVirtualPositionInput) {
+  createVirtualPosition(input: $input) {
+    ref
+    type
+    status
+  }
+}

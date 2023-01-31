@@ -1,0 +1,15 @@
+query GetInventoryPositionByRefWithAttributes($ref: String!, $catalogueRef: String!) {
+    inventoryPosition(ref: $ref, catalogue: {ref: $catalogueRef}) {
+        id
+        ref
+        type
+        status
+        locationRef
+        productRef
+        onHand
+        attributes{
+          name
+          value
+        }
+    }
+}

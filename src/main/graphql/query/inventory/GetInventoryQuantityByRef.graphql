@@ -1,0 +1,8 @@
+query GetInventoryQuantityByRef($inventoryQtyRef : String!, $catalogueRef : String!){
+    inventoryQuantity(ref:$inventoryQtyRef ,catalogue:{ref:$catalogueRef})
+    {
+        id
+        ref
+        quantity
+    }
+}

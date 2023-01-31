@@ -1,0 +1,11 @@
+query billingAccountsByCustomerRef($customerRef:String!) {
+    billingAccounts(customer: {ref:$customerRef}) {
+        edges{
+            node{
+                id,
+                ref,
+                type
+            }
+        }
+    }
+}

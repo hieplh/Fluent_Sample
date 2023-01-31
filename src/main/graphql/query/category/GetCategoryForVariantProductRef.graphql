@@ -1,0 +1,15 @@
+query GetCategoryForVariantProductRef($productRef: String!, $catalogueRef: String!, $itemCount: Int!, $cursor: String!) {
+	variantProduct(ref: $productRef, catalogue: {ref: $catalogueRef}) {
+  		categories (first: $itemCount, after: $cursor){
+    		categoryEdge:edges{
+      			category:node{
+        			ref
+      			}
+				cursor
+    		}
+			pageInfo{
+				hasNextPage
+			}
+  		}
+  	}
+}

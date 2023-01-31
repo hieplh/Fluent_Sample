@@ -1,0 +1,12 @@
+query GetCreditMemoByRef($ref: String!) {
+    creditMemo (ref: $ref) {
+        id
+        ref
+        type
+        status
+        totalAmount {
+            amount
+        }
+
+    }
+}

@@ -1,0 +1,23 @@
+query GetLocationsForNetworkRef($networkRef: String!, $locationStatuses:[String]! $locationCount:Int, $locationCursor: String) {
+  network(ref: $networkRef) {
+    ref
+    locations(status:$locationStatuses first: $locationCount, after: $locationCursor) {
+      locationEdge:edges {
+        location:node {
+          id
+          ref
+          status
+          type
+          primaryAddress{
+            longitude
+            latitude
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+      }
+    }
+  }
+}
