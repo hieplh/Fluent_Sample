@@ -1,6 +1,7 @@
 package com.sample.entity;
 
 import lombok.*;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,7 +11,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Trip {
@@ -46,5 +46,10 @@ public class Trip {
 			return false;
 		Trip other = (Trip) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return new JSONObject(this).toString(1);
 	}
 }

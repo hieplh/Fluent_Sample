@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,4 +32,7 @@ public class TripRequest implements Serializable {
 
 	@JsonProperty("total_price_actual")
 	private String totalPriceActual;
+
+	@JsonProperty("roles")
+	private Set<TripRoleRequest> roles;
 }
